@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Un año contigo ❤️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -13,7 +16,7 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Patrick Hand', cursive, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background: linear-gradient(135deg, #ffe6e6 0%, #ffd1dc 100%);
             min-height: 100vh;
             display: flex;
@@ -25,6 +28,7 @@
             -webkit-tap-highlight-color: transparent;
             overflow-x: hidden;
             position: relative;
+            letter-spacing: 0.3px;
         }
         
         /* Corazones animados en el fondo */
@@ -44,6 +48,7 @@
             color: rgba(255, 77, 109, 0.3);
             opacity: 0;
             animation: floatUp 15s linear infinite;
+            font-family: 'Patrick Hand', cursive;
         }
         
         @keyframes floatUp {
@@ -75,11 +80,13 @@
         
         h1 {
             text-align: center;
-            margin-bottom: 10px; /* Reducido para dar espacio al emoji */
+            margin-bottom: 10px;
             font-weight: 700;
             color: #d46a8f;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
-            font-size: 2.2rem;
+            font-size: 2.8rem; /* Un poco más grande para la nueva fuente */
+            font-family: 'Patrick Hand', cursive;
+            letter-spacing: 1px;
         }
         
         /* Emoji de carta completamente separado y arriba de todo */
@@ -89,7 +96,7 @@
             display: flex;
             justify-content: center;
             margin-bottom: 10px;
-            z-index: 1000; /* Valor muy alto para estar encima de todo */
+            z-index: 1000;
         }
         
         .floating-emoji {
@@ -97,8 +104,9 @@
             animation: floatEmoji 3s ease-in-out infinite;
             text-shadow: 0 5px 15px rgba(212, 106, 143, 0.4);
             position: relative;
-            z-index: 1001; /* Aún más alto */
-            transform: translateY(-10px); /* Posicionado más arriba */
+            z-index: 1001;
+            transform: translateY(-10px);
+            font-family: 'Patrick Hand', cursive;
         }
         
         @keyframes floatEmoji {
@@ -110,7 +118,7 @@
             position: relative;
             width: 300px;
             height: 200px;
-            margin: 20px auto 40px; /* Ajustado para el espacio del emoji */
+            margin: 20px auto 40px;
             perspective: 1000px;
             z-index: 10;
         }
@@ -161,10 +169,12 @@
         /* Texto dentro del sobre */
         .envelope-text {
             color: white;
-            font-size: 18px;
+            font-size: 24px; /* Más grande para mejor legibilidad */
             font-weight: 600;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
             margin-top: 10px;
+            font-family: 'Patrick Hand', cursive;
+            letter-spacing: 0.5px;
         }
         
         .open-btn {
@@ -172,7 +182,7 @@
             color: white;
             border: none;
             padding: 14px 28px;
-            font-size: 18px;
+            font-size: 22px; /* Más grande para la nueva fuente */
             border-radius: 50px;
             cursor: pointer;
             margin-top: 20px;
@@ -182,6 +192,8 @@
             -webkit-appearance: none;
             position: relative;
             z-index: 10;
+            font-family: 'Patrick Hand', cursive;
+            letter-spacing: 0.5px;
         }
         
         .open-btn:hover, .open-btn:active {
@@ -220,7 +232,7 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             margin: 30px auto;
             line-height: 1.6;
-            font-size: 18px;
+            font-size: 22px; /* Más grande para la nueva fuente */
             text-align: center;
             opacity: 0;
             transform: translateY(20px);
@@ -229,6 +241,8 @@
             overflow: hidden;
             position: relative;
             z-index: 5;
+            font-family: 'Patrick Hand', cursive;
+            letter-spacing: 0.5px;
         }
         
         .message.show {
@@ -241,7 +255,9 @@
         .message h2 {
             color: #d46a8f;
             margin-bottom: 20px;
-            font-size: 24px;
+            font-size: 28px; /* Más grande para la nueva fuente */
+            font-family: 'Patrick Hand', cursive;
+            letter-spacing: 0.8px;
         }
         
         .message p {
@@ -249,10 +265,11 @@
         }
         
         .signature {
-            font-family: 'Brush Script MT', cursive;
-            font-size: 24px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 28px; /* Más grande para la nueva fuente */
             color: #ff4d6d;
             margin-top: 20px;
+            letter-spacing: 1px;
         }
         
         .photo-container {
@@ -283,6 +300,10 @@
             align-items: center;
             justify-content: center;
             color: #d46a8f;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 20px;
+            text-align: center;
+            padding: 20px;
         }
         
         .photo-placeholder i {
@@ -293,25 +314,29 @@
         .instructions {
             text-align: center;
             margin-top: 30px;
-            font-size: 16px;
+            font-size: 20px; /* Más grande para la nueva fuente */
             color: #a85c7a;
             font-style: italic;
             position: relative;
             z-index: 5;
+            font-family: 'Patrick Hand', cursive;
+            letter-spacing: 0.5px;
         }
         
         .footer {
             text-align: center;
             margin-top: 40px;
             color: #a85c7a;
-            font-size: 14px;
+            font-size: 18px; /* Más grande para la nueva fuente */
             position: relative;
             z-index: 5;
+            font-family: 'Patrick Hand', cursive;
+            letter-spacing: 0.5px;
         }
         
         @media (max-width: 480px) {
             h1 {
-                font-size: 1.8rem;
+                font-size: 2.2rem;
             }
             
             .floating-emoji {
@@ -323,13 +348,38 @@
                 height: 190px;
             }
             
+            .envelope-text {
+                font-size: 22px;
+            }
+            
             .message, .photo-container {
                 width: 100%;
                 max-width: 280px;
             }
             
+            .message {
+                font-size: 20px;
+                padding: 25px;
+            }
+            
+            .message h2 {
+                font-size: 24px;
+            }
+            
+            .signature {
+                font-size: 24px;
+            }
+            
             .open-btn {
                 padding: 12px 24px;
+                font-size: 20px;
+            }
+            
+            .instructions {
+                font-size: 18px;
+            }
+            
+            .footer {
                 font-size: 16px;
             }
             
@@ -345,6 +395,16 @@
             transform: translateY(10px);
             animation: fadeInUp 1s ease forwards;
             animation-delay: 0.5s;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 20px;
+            text-align: center;
+            color: #7a4b5a;
+        }
+        
+        .letter-content h2 {
+            font-size: 24px;
+            color: #d46a8f;
+            margin-bottom: 10px;
         }
         
         @keyframes fadeInUp {
@@ -566,8 +626,8 @@
             createFloatingHearts();
             
             // Mensaje especial en la consola
-            console.log("%c 💌 Para mi amor 💌", "color: #ff4d6d; font-size: 18px; font-weight: bold;");
-            console.log("%c Este año contigo ha sido el mejor de mi vida. Te amo.", "color: #d46a8f; font-size: 14px;");
+            console.log("%c 💌 Para mi amor 💌", "color: #ff4d6d; font-size: 18px; font-weight: bold; font-family: 'Patrick Hand', cursive;");
+            console.log("%c Este año contigo ha sido el mejor de mi vida. Te amo.", "color: #d46a8f; font-size: 14px; font-family: 'Patrick Hand', cursive;");
         });
     </script>
 </body>
