@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Un año contigo ❤️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffd1dc 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #7a4b5a;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            color: #d46a8f;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            font-size: 2.2rem;
+        }
+        
+        .envelope-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            margin: 40px auto;
+            perspective: 1000px;
+        }
+        
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 1s ease-in-out;
+        }
+        
+        .envelope.open {
+            transform: rotateX(180deg);
+        }
+        
+        .envelope-front, .envelope-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(212, 106, 143, 0.3);
+        }
+        
+        .envelope-front {
+            background: linear-gradient(135deg, #ffb6c1 0%, #ff8fa3 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transform: rotateX(0deg);
+        }
+        
+        .envelope-back {
+            background: #fff0f5;
+            transform: rotateX(180deg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 20px;
+        }
+        
+        .heart {
+            color: #ff4d6d;
+            font-size: 60px;
+            margin-bottom: 20px;
+            animation: heartbeat 1.5s ease-in-out infinite both;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .open-btn {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(212, 106, 143, 0.4);
+            transition: all 0.3s ease;
+            -webkit-appearance: none;
+        }
+        
+        .open-btn:hover, .open-btn:active {
+            background-color: #ff3355;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 106, 143, 0.5);
+        }
+        
+        .open-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff8fa3 0%, #ff6b8b 100%);
+            clip-path: polygon(0% 0%, 50% 50%, 100% 0%);
+            border-radius: 10px 10px 0 0;
+            z-index: 3;
+            transform-origin: top;
+            transition: transform 1s ease-in-out;
+        }
+        
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+        }
+        
+        .message {
+            width: 280px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin: 30px auto;
+            line-height: 1.6;
+            font-size: 18px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
+            max-height: 1000px;
+            transition-delay: 1s;
+        }
+        
+        .message h2 {
+            color: #d46a8f;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .message p {
+            margin-bottom: 15px;
+        }
+        
+        .signature {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 24px;
+            color: #ff4d6d;
+            margin-top: 20px;
+        }
+        
+        .photo-container {
+            width: 280px;
+            margin: 30px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(212, 106, 143, 0.4);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        .photo-container.show {
+            opacity: 1;
+            transform: scale(1);
+            transition-delay: 1.5s;
+        }
+        
+        .photo-placeholder {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #ffcfe0 0%, #ffb1ca 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #d46a8f;
+        }
+        
+        .photo-placeholder i {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        .instructions {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 16px;
+            color: #a85c7a;
+            font-style: italic;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #a85c7a;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .envelope-container {
+                width: 280px;
+                height: 190px;
+            }
+            
+            .message, .photo-container {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .open-btn {
+                padding: 12px 24px;
+                font-size: 16px;
+            }
+        }
+        
+        /* Animación para el texto dentro de la carta */
+        .letter-content {
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 0.5s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Un año a tu lado ❤️</h1>
+        
+        <div class="envelope-container">
+            <div class="envelope" id="envelope">
+                <div class="envelope-front">
+                    <div class="heart">💌</div>
+                    <p>¡Toca para abrir!</p>
+                </div>
+                <div class="flap"></div>
+                <div class="envelope-back">
+                    <div class="letter-content">
+                        <h2>Para mi amor</h2>
+                        <p>En este día tan especial, quiero recordarte lo mucho que significas para mí.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="open-btn" id="openBtn">Abrir la carta</button>
+        
+        <div class="message" id="message">
+            <h2>Mi amor,</h2>
+            <p>Hoy celebramos un año juntos, un año lleno de momentos increíbles, risas, complicidad y mucho amor.</p>
+            <p>Recuerdo cada instante a tu lado como si fuera ayer. Desde nuestra primera cita hasta hoy, cada día contigo ha sido un regalo.</p>
+            <p>Eres la persona que ilumina mis días, mi confidente, mi mejor amiga y el amor de mi vida.</p>
+            <p>Gracias por este año maravilloso. Espero que sean muchos más a tu lado.</p>
+            <p>Con todo mi amor,</p>
+            <div class="signature">Para siempre tuyo</div>
+        </div>
+        
+        <div class="photo-container" id="photoContainer">
+            <div class="photo-placeholder">
+                <i class="fas fa-heart"></i>
+                <p>Nuestro lugar favorito</p>
+                <p>(Puedes reemplazar esta imagen)</p>
+            </div>
+        </div>
+        
+        <p class="instructions">Toca el sobre o el botón para abrir la carta especial</p>
+        
+        <div class="footer">
+            <p>Con mucho amor, para mi novia en nuestro primer aniversario</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const envelope = document.getElementById('envelope');
+            const openBtn = document.getElementById('openBtn');
+            const message = document.getElementById('message');
+            const photoContainer = document.getElementById('photoContainer');
+            
+            // Función para abrir la carta
+            function openCard() {
+                envelope.classList.add('open');
+                
+                // Mostrar mensaje después de la animación del sobre
+                setTimeout(() => {
+                    message.classList.add('show');
+                }, 1000);
+                
+                // Mostrar foto después
+                setTimeout(() => {
+                    photoContainer.classList.add('show');
+                }, 1500);
+                
+                // Cambiar texto del botón
+                openBtn.textContent = "¡Carta abierta! ❤️";
+                openBtn.disabled = true;
+                openBtn.style.backgroundColor = "#ffb6c1";
+                
+                // Reproducir sonido de carta (opcional)
+                playLetterSound();
+            }
+            
+            // Función para reproducir sonido de carta
+            function playLetterSound() {
+                // Crear un contexto de audio
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Crear un oscilador para el sonido
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // Configurar el sonido
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // Nota Do
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // Nota Mi
+                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // Nota Sol
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            }
+            
+            // Event listeners
+            envelope.addEventListener('click', openCard);
+            openBtn.addEventListener('click', openCard);
+            
+            // Para dispositivos táctiles, mejorar la interacción
+            envelope.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                this.style.transform = 'scale(0.98)';
+            });
+            
+            envelope.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                this.style.transform = 'scale(1)';
+            });
+            
+            // Mensaje especial en la consola
+            console.log("%c 💌 Para mi amor 💌", "color: #ff4d6d; font-size: 18px; font-weight: bold;");
+            console.log("%c Este año contigo ha sido el mejor de mi vida. Te amo.", "color: #d46a8f; font-size: 14px;");
+        });
+    </script>
+</body>
+</html>
