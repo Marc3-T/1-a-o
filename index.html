@@ -23,6 +23,44 @@
             padding: 20px;
             color: #7a4b5a;
             -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Corazones animados en el fondo */
+        .hearts-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .heart-bg {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 77, 109, 0.3);
+            opacity: 0;
+            animation: floatUp 15s linear infinite;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
         }
         
         .container {
@@ -31,23 +69,50 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
+            z-index: 1;
         }
         
         h1 {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 10px; /* Reducido para dar espacio al emoji */
             font-weight: 700;
             color: #d46a8f;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
             font-size: 2.2rem;
         }
         
+        /* Emoji de carta completamente separado y arriba de todo */
+        .emoji-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+            z-index: 1000; /* Valor muy alto para estar encima de todo */
+        }
+        
+        .floating-emoji {
+            font-size: 80px;
+            animation: floatEmoji 3s ease-in-out infinite;
+            text-shadow: 0 5px 15px rgba(212, 106, 143, 0.4);
+            position: relative;
+            z-index: 1001; /* Aún más alto */
+            transform: translateY(-10px); /* Posicionado más arriba */
+        }
+        
+        @keyframes floatEmoji {
+            0%, 100% { transform: translateY(-10px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+        
         .envelope-container {
             position: relative;
             width: 300px;
             height: 200px;
-            margin: 40px auto;
+            margin: 20px auto 40px; /* Ajustado para el espacio del emoji */
             perspective: 1000px;
+            z-index: 10;
         }
         
         .envelope {
@@ -93,16 +158,13 @@
             padding-top: 20px;
         }
         
-        .heart {
-            color: #ff4d6d;
-            font-size: 60px;
-            margin-bottom: 20px;
-            animation: heartbeat 1.5s ease-in-out infinite both;
-        }
-        
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        /* Texto dentro del sobre */
+        .envelope-text {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            margin-top: 10px;
         }
         
         .open-btn {
@@ -118,6 +180,8 @@
             box-shadow: 0 5px 15px rgba(212, 106, 143, 0.4);
             transition: all 0.3s ease;
             -webkit-appearance: none;
+            position: relative;
+            z-index: 10;
         }
         
         .open-btn:hover, .open-btn:active {
@@ -163,6 +227,8 @@
             transition: opacity 1s ease, transform 1s ease;
             max-height: 0;
             overflow: hidden;
+            position: relative;
+            z-index: 5;
         }
         
         .message.show {
@@ -198,6 +264,8 @@
             opacity: 0;
             transform: scale(0.9);
             transition: opacity 1s ease, transform 1s ease;
+            position: relative;
+            z-index: 5;
         }
         
         .photo-container.show {
@@ -228,6 +296,8 @@
             font-size: 16px;
             color: #a85c7a;
             font-style: italic;
+            position: relative;
+            z-index: 5;
         }
         
         .footer {
@@ -235,11 +305,17 @@
             margin-top: 40px;
             color: #a85c7a;
             font-size: 14px;
+            position: relative;
+            z-index: 5;
         }
         
         @media (max-width: 480px) {
             h1 {
                 font-size: 1.8rem;
+            }
+            
+            .floating-emoji {
+                font-size: 70px;
             }
             
             .envelope-container {
@@ -255,6 +331,10 @@
             .open-btn {
                 padding: 12px 24px;
                 font-size: 16px;
+            }
+            
+            .heart-bg {
+                font-size: 20px;
             }
         }
         
@@ -273,17 +353,35 @@
                 transform: translateY(0);
             }
         }
+        
+        /* Ajuste para emoji cuando se abre la carta */
+        .emoji-opened {
+            animation: emojiOpened 2s ease forwards;
+        }
+        
+        @keyframes emojiOpened {
+            0% { transform: translateY(-10px) scale(1); }
+            50% { transform: translateY(-30px) scale(1.2); }
+            100% { transform: translateY(-10px) scale(1); }
+        }
     </style>
 </head>
 <body>
+    <!-- Fondo con corazones animados -->
+    <div class="hearts-background" id="heartsBackground"></div>
+    
     <div class="container">
         <h1>Un año a tu lado ❤️</h1>
+        
+        <!-- Emoji completamente separado y arriba de todo -->
+        <div class="emoji-container">
+            <div class="floating-emoji" id="floatingEmoji">💌</div>
+        </div>
         
         <div class="envelope-container">
             <div class="envelope" id="envelope">
                 <div class="envelope-front">
-                    <div class="heart">💌</div>
-                    <p>¡Toca para abrir!</p>
+                    <div class="envelope-text">¡Toca para abrir!</div>
                 </div>
                 <div class="flap"></div>
                 <div class="envelope-back">
@@ -328,10 +426,47 @@
             const openBtn = document.getElementById('openBtn');
             const message = document.getElementById('message');
             const photoContainer = document.getElementById('photoContainer');
+            const heartsBackground = document.getElementById('heartsBackground');
+            const floatingEmoji = document.getElementById('floatingEmoji');
+            
+            // Crear corazones animados en el fondo
+            function createFloatingHearts() {
+                const heartIcons = ['❤️', '💖', '💗', '💓', '💞', '💕', '💘', '💝'];
+                const numberOfHearts = 15;
+                
+                for (let i = 0; i < numberOfHearts; i++) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart-bg');
+                    heart.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                    
+                    // Posición aleatoria
+                    const leftPosition = Math.random() * 100;
+                    heart.style.left = `${leftPosition}%`;
+                    
+                    // Tamaño aleatorio
+                    const size = 20 + Math.random() * 25;
+                    heart.style.fontSize = `${size}px`;
+                    
+                    // Retraso aleatorio en la animación
+                    const delay = Math.random() * 12;
+                    heart.style.animationDelay = `${delay}s`;
+                    
+                    // Duración de animación aleatoria
+                    const duration = 12 + Math.random() * 8;
+                    heart.style.animationDuration = `${duration}s`;
+                    
+                    // Color con opacidad aleatoria
+                    const opacity = 0.2 + Math.random() * 0.4;
+                    heart.style.color = `rgba(255, 77, 109, ${opacity})`;
+                    
+                    heartsBackground.appendChild(heart);
+                }
+            }
             
             // Función para abrir la carta
             function openCard() {
                 envelope.classList.add('open');
+                floatingEmoji.classList.add('emoji-opened');
                 
                 // Mostrar mensaje después de la animación del sobre
                 setTimeout(() => {
@@ -350,6 +485,42 @@
                 
                 // Reproducir sonido de carta (opcional)
                 playLetterSound();
+                
+                // Añadir más corazones cuando se abre la carta
+                addExtraHearts();
+            }
+            
+            // Añadir corazones extra cuando se abre la carta
+            function addExtraHearts() {
+                const heartIcons = ['❤️', '💖', '💗', '💓'];
+                
+                for (let i = 0; i < 8; i++) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart-bg');
+                    heart.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                    
+                    // Posición aleatoria
+                    const leftPosition = 20 + Math.random() * 60;
+                    heart.style.left = `${leftPosition}%`;
+                    
+                    // Tamaño
+                    heart.style.fontSize = `30px`;
+                    
+                    // Color más intenso
+                    heart.style.color = `rgba(255, 77, 109, 0.6)`;
+                    
+                    // Animación más rápida
+                    heart.style.animationDuration = `8s`;
+                    
+                    heartsBackground.appendChild(heart);
+                    
+                    // Remover el corazón después de que termine la animación
+                    setTimeout(() => {
+                        if (heart.parentNode) {
+                            heart.remove();
+                        }
+                    }, 8000);
+                }
             }
             
             // Función para reproducir sonido de carta
@@ -390,6 +561,9 @@
                 e.preventDefault();
                 this.style.transform = 'scale(1)';
             });
+            
+            // Inicializar corazones flotantes
+            createFloatingHearts();
             
             // Mensaje especial en la consola
             console.log("%c 💌 Para mi amor 💌", "color: #ff4d6d; font-size: 18px; font-weight: bold;");
